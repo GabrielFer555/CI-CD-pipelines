@@ -3,7 +3,7 @@ executar_test:
     - echo "Preparando testes"
   script:
     - echo "Executando testes"
-  after_scripts:
+  after_script:
     - echo "Apagando arquivos temporarios"
 
 criar_imagens:
