@@ -1,4 +1,30 @@
+stages:
+  - build
+  - test
+  - deploy
+
+downloading_dependencies:
+  stage: build
+  before_script:
+    - echo "Baixando dependências"
+  script:
+    - echo "Dependências baixadas com sucesso"
+  after_script:
+    - echo "Limpando arquivos temporarios"  
+
+build_application:
+  stage: build
+  needs:
+    - downloading_dependencies
+  before_script:
+    - echo "Preparando ambiente de build"
+  script:
+    - echo "Compilando a aplicação"
+  after_script:
+    - echo "Limpando arquivos temporarios"
+
 executar_test:
+  stage: test
   before_script:
     - echo "Preparando testes"
   script:
@@ -7,9 +33,13 @@ executar_test:
     - echo "Apagando arquivos temporarios"
 
 criar_imagens:
+  stage: deploy
   script:
     - echo "Criando Imagens"
 
 push:
+  needs:
+    - criar_imagens
+  stage: deploy
   script:
     - echo "Realizando upload das imagens"
